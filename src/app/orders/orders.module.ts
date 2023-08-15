@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 const routes: Routes = [
@@ -24,7 +25,9 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule
-    , RouterModule.forChild(routes)
+    , RouterModule.forChild(routes),
+    SharedModule
+
 
   ],
   exports: [RouterModule]

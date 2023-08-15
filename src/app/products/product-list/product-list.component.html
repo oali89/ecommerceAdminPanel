@@ -1,1 +1,136 @@
-<p>product-list works!</p>
+<p-table *ngIf="false" [value]="productList" sortMode="single" [tableStyle]="{'min-width': '60rem'}" [paginator]="true"
+  [rows]="5" [showCurrentPageReport]="true" [tableStyle]="{ 'min-width': '50rem' }"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5,10, 25, 50]">
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      Products
+      <p-button icon="pi pi-refresh"></p-button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+        {{ col.header }}
+        <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
+
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData>
+    <tr>
+      <td *ngFor="let col of columns" [ngStyle]="{ 'max-width': col.width }">
+        <div [ngSwitch]="col.type">
+          <span *ngSwitchCase="Columntypelst.String " class="truncate" [pTooltip]="rowData[col.field]">
+            {{ rowData[col.field] }}
+          </span>
+          <span *ngSwitchCase="Columntypelst.Number" [pTooltip]="rowData[col.field]">
+            {{ rowData[col.field] }}
+          </span>
+          <span *ngSwitchCase="Columntypelst.image" class="truncate" [pTooltip]="rowData[col.field]">
+
+
+            <img [src]="rowData[col.field] " width="100" class="shadow-4" />
+          </span>
+
+
+          <span *ngSwitchCase="Columntypelst.list" class="d-flex">
+            <span class="truncate me-1" [pTooltip]="rowData[col.field]?.length ==1?  rowData[col.field]?.[0] :null ">
+              {{ rowData[col.field]?.[0] }}
+            </span>
+            <a href="#" [pTooltip]="rowData[col.field]" *ngIf="rowData[col.field]?.length > 1">({{
+              rowData[col.field]?.length - 1 }} more)</a>
+          </span>
+          <span *ngSwitchCase="Columntypelst.progress">
+            <p-progressBar [value]="rowData[col.field]" [showValue]="false"></p-progressBar>
+          </span>
+          <span *ngSwitchCase="Columntypelst.Currency">
+            <span class="full-text" [pTooltip]="rowData[col.field]">{{ rowData[col.field]|currency }}
+            </span>
+          </span>
+          <span *ngSwitchCase="Columntypelst.date">
+            <span class="full-text" [pTooltip]="rowData[col.field]">{{ rowData[col.field] }}
+            </span>
+          </span>
+          <span *ngSwitchCase="Columntypelst.booleanIcon">
+            <i class="pi" [ngClass]="{
+                'text-green-500 pi-check-circle': rowData[col.field],
+                'text-red-500 pi-times-circle': !rowData[col.field]
+              }"></i>
+          </span>
+
+          <div *ngSwitchCase="Columntypelst.ActionMenu" (click)="toggleMenu(popupMenu, $event, rowData.id)"
+            style="display: flex; justify-content: center">
+            <i class="fa fa-ellipsis-v" (click)="toggleMenu(popupMenu, $event, rowData.id); $event.stopPropagation()"
+              style="cursor: pointer"></i>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>
+
+<div class="card">
+  <p-dataView #dv [value]="productList" [rows]="5" [paginator]="true" [sortField]="sortField" [sortOrder]="sortOrder"
+    [layout]="layout">
+    <ng-template pTemplate="header">
+      <div class="flex flex-column md:flex-row md:justify-content-between">
+        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price"
+          (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+      </div>
+      <div class="flex justify-content-end">
+        <p-dataViewLayoutOptions [layout]="layout"></p-dataViewLayoutOptions>
+      </div>
+    </ng-template>
+    <ng-template let-product pTemplate="listItem">
+      <div class="col-12">
+        <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+          <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+            [src]="product.ProductImg" />
+          <div
+            class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+            <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+              <div class="text-2xl font-bold text-900">{{ product.ProductName }}</div>
+              <p-rating value="5" [readonly]="true" [cancel]="false"></p-rating>
+              <div class="flex align-items-center gap-3">
+                <span class="flex align-items-center gap-2">
+                  <i class="pi pi-tag"></i>
+                  <!-- <span class="font-semibold">{{ product.category }}</span> -->
+                </span>
+                <p-tag [value]="getStatus(product)" [severity]="getSeverity(product)"></p-tag>
+              </div>
+            </div>
+            <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+              <span class="text-2xl font-semibold">{{ product.ProductPrice |currency }}</span>
+              <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded"
+                [disabled]="product.AvailablePieces === 0"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template let-product pTemplate="gridItem">
+      <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
+        <div class="p-4 border-1 surface-border surface-card border-round">
+          <div class="flex flex-wrap align-items-center justify-content-between gap-2">
+            <span class="flex align-items-center gap-2">
+              <i class="pi pi-tag"></i>
+              <!-- <span class="font-semibold">{{ product.category }}</span> -->
+            </span>
+            <p-tag [value]="getStatus(product)" [severity]="getSeverity(product)"></p-tag>
+          </div>
+          <div class="flex flex-column align-items-center gap-3 py-5">
+            <img class="w-9 shadow-2 border-round" [src]="product.ProductImg" [alt]="product.ProductName" />
+            <div class="text-2xl font-bold">{{ product.ProductName }}</div>
+            <p-rating [ngModel]="5" [readonly]="true" [cancel]="false"></p-rating>
+          </div>
+          <div class="flex align-items-center justify-content-between">
+            <span class="text-2xl font-semibold">{{ '$' + product.ProductPrice }}</span>
+            <button pButton icon="pi pi-shopping-cart" class="p-button-rounded"
+              [disabled]="product.AvailablePieces === 0"></button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>

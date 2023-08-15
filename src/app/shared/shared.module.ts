@@ -86,6 +86,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const PrimeComponent = [
 
   ToastModule,
@@ -188,9 +189,13 @@ const PrimeComponent = [
 @NgModule({
   declarations: [],
   imports: [
+
     CommonModule,
     HttpClientModule,
     PrimeComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    
     JsonPipe,
 
   ]
