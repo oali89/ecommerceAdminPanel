@@ -71,15 +71,16 @@
 </p-table>
 
 <div class="card">
-  <p-dataView #dv [value]="productList" [rows]="5" [paginator]="true" [sortField]="sortField" [sortOrder]="sortOrder"
+  <p-dataView #dv [value]="productList" [rows]="6" [paginator]="true" [sortField]="sortField" [sortOrder]="sortOrder"
     [layout]="layout">
     <ng-template pTemplate="header">
       <div class="flex flex-column md:flex-row md:justify-content-between">
         <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price"
           (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
-      </div>
-      <div class="flex justify-content-end">
-        <p-dataViewLayoutOptions [layout]="layout"></p-dataViewLayoutOptions>
+
+        <div class=" justify-content-end">
+          <p-dataViewLayoutOptions [layout]="layout"></p-dataViewLayoutOptions>
+        </div>
       </div>
     </ng-template>
     <ng-template let-product pTemplate="listItem">

@@ -1,3 +1,4 @@
+import { Order } from './../orders/models/order';
 import { Injectable, Injector } from '@angular/core';
 import {
   HttpRequest,
@@ -9,6 +10,8 @@ import {
 import { Observable, of } from 'rxjs';
 import orderData from './data/orders.json';
 import productsData from './data/porducts.json';
+import UsersData from './data/users.json';
+import { User } from '../orders/models/user';
 
 
 const users = {
@@ -53,6 +56,9 @@ export class FakeBackendInterceptorInterceptor implements HttpInterceptor {
 
         case url.endsWith('/Products') && method === 'GET':
           return getProducts();
+        case url.endsWith('/users') && method === 'GET':
+          return getUserOrders();
+
         default:
           return next.handle(request);
         // if (request.method === "GET" && request.url === "http://localhost:4200/users") {
@@ -80,6 +86,11 @@ function getOrders() {
 function getProducts() {
   // if (!isLoggedIn()) return unauthorized();
   return of(new HttpResponse({ status: 200, body: productsData }));
+}
+
+function getUserOrders() {
+  // if (!isLoggedIn()) return unauthorized();
+  return of(new HttpResponse({ status: 200, body: UsersData }));
 }
 
 

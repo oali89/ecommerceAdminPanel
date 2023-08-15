@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { SharedModule } from '../shared/shared.module';
+import { UserOrderListComponent } from './user-order-list/user-order-list.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     OrderListComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    UserOrderListComponent
   ],
   imports: [
     CommonModule

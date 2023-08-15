@@ -36,17 +36,7 @@ export class ProductListComponent {
     ];
   }
 
-  getSeverity(product: Product) {
-    if (product.AvailablePieces > 20) {
 
-      return 'success';
-    } else if (product.AvailablePieces < 20) {
-      return 'warning';
-
-    }
-    else if (product.AvailablePieces == 0) { return 'danger'; }
-    return null
-  };
   onSortChange(event: any) {
     let value = event.value;
 
@@ -58,16 +48,24 @@ export class ProductListComponent {
       this.sortField = value;
     }
   }
-  getStatus(product: Product) {
-    if (product.AvailablePieces > 20) {
+  getSeverity(product: Product) {
+    if (product.AvailablePieces >= 20) {
 
+      return 'success';
+    } else if (product.AvailablePieces < 20) {
+      return 'warning';
+
+    }
+    else if (product.AvailablePieces == 0) { return 'danger'; }
+    return null
+  };
+  getStatus(product: Product) {
+    if (product.AvailablePieces >= 20) {
       return 'INSTOCK';
     } else if (product.AvailablePieces < 20) {
       return 'LOWSTOCK';
-
     }
     else if (product.AvailablePieces == 0) { return 'OUTOFSTOCK'; }
     return null
-
   };
 }
