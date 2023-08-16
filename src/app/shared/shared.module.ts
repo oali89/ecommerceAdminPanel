@@ -186,6 +186,8 @@ const PrimeComponent = [
   TriStateCheckboxModule,
   VirtualScrollerModule,
   ImageModule,
+  FormsModule,
+  ReactiveFormsModule
 ];
 
 @NgModule({

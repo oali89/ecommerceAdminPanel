@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Order } from '../models/order';
 import { User } from '../models/user';
 
@@ -16,5 +16,9 @@ export class OrderService {
   getusers(): Observable<User[]> {
     return this.httpClient.get<User[]>("http://localhost:4200/users")
   }
+  AddNewOrder() {
 
+    return this.httpClient.post("http://localhost:4200/Orders", {})
+
+  }
 }

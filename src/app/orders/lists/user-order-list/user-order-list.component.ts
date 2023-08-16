@@ -17,7 +17,7 @@ export class UserOrderListComponent {
   expandedRows: {} = {};
   orderList: Order[];
   Columntypelst = Columntype;
-  searchCtrl = new FormControl({ searchCtrl: new FormControl('') })
+  searchCtrl = new FormControl()
   columns: Column[] = [
     { field: '', header: '', width: '1%', type: Columntype.expanded },
 
@@ -67,20 +67,11 @@ export class UserOrderListComponent {
   LoadList() {
     let userdata;
     this.orderService.getusers().subscribe(users => {
-      console.log(users)
       userdata = users;
       this.orderService.getOrders().subscribe(res => {
-        // res.forEach(order => {
-        //   order.User = users.find(x => x.Id == order.UserId)
-        // })
         this.orderList = res
-        console.log(this.orderList)
       })
     });
-    this.ProductService.getProduct(124).subscribe(Response => {
-
-      console.log(Response)
-    })
 
 
     const thisRef = this;
@@ -90,13 +81,10 @@ export class UserOrderListComponent {
       order.User = userdata.find(x => x.Id == order.UserId)
       order.TotalPrice = order.Products.reduce(
         (acc: number, product: Product) => {
-          // acc + product.ProductPrice
           let orignalProduct: Product;
           this.ProductService.getProduct(product.ProductId).subscribe(Response => {
             orignalProduct = Response;
-            console.log(orignalProduct)
           })
-
           return acc + orignalProduct.ProductPrice * product.Quantity
         },
         0)

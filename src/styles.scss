@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'primeicons/primeicons.css';
+@import 'bootstrap/dist/css/bootstrap.css';
+
 .grid-img {
   width: 35px;
   height: 35px;
@@ -11,4 +13,43 @@
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
+}
+.p-dropdown,
+.p-multiselect,
+.p-inputnumber,
+input.p-inputtext:not(.inputgroup-input) {
+  height: 35px !important;
+  //max-width: 95%;
+
+  //width: 90%;
+  .p-dropdown-label.p-placeholder,
+  .p-multiselect-label {
+    padding-top: 6px;
+  }
+  .p-inputtext {
+    padding-top: 6px;
+    //height: 35px;
+  }
+}
+.p-calendar {
+  height: 35px;
+}
+.p-inputgroup {
+  .p-button {
+    height: 35px !important;
+  }
+}
+
+.p-inputgroup,
+.p-inputgroup.file-group {
+  height: 35px;
+  max-width: 95%;
+}
+.p-panel {
+  .p-panel-header {
+    padding: 0.5rem;
+    .p-panel-title {
+      font-size: 1rem;
+    }
+  }
 }
