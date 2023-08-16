@@ -17,6 +17,7 @@ export enum Columntype {
   image,
   time,
   list,
+  listObjectCount,
   daysOfWeek,
   statusNumber,
   Compine2Field,

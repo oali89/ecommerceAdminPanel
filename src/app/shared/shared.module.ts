@@ -85,6 +85,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const PrimeComponent = [
@@ -147,7 +149,7 @@ const PrimeComponent = [
   OrganizationChartModule,
   OverlayPanelModule,
   PaginatorModule,
-  //PanelModule,
+  PanelModule,
   PanelMenuModule,
   PasswordModule,
   PickListModule,
@@ -195,7 +197,7 @@ const PrimeComponent = [
     PrimeComponent,
     FormsModule,
     ReactiveFormsModule,
-    
+
     JsonPipe,
 
   ]

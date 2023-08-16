@@ -1,0 +1,135 @@
+<p-panel>
+  <ng-template pTemplate="header">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <span>Order Management</span>
+      <div class="p-inputgroup w-25">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-search"></i>
+        </span>
+        <input type="text" [formControl]="searchCtrl" pInputText placeholder="Global Search" />
+      </div>
+    </div>
+  </ng-template>
+
+  <p-table #dt *ngIf="orderList?.length > 0" id="lst" [columns]="columns" [value]="groupedData" dataKey="UserId"
+    [expandedRowKeys]="expandedRows" groupRowsBy="UserId" [rowExpandMode]="'multiple'" sortMode="single"
+    styleClass="p-datatable-sm" rowGroupMode="subheader" expandableRows="true" [paginator]="true" [rows]="5"
+    [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[5,10, 25, 50]">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th attr.width="10%"></th>
+
+        <th *ngFor="let col of columns" [attr.width]="col.width" [pSortableColumn]="col.field">
+          {{ col.header }}
+          <p-sortIcon *ngIf="col.sortable && col.type != Columntypelst.expanded" [field]="col.field"></p-sortIcon>
+          <!-- <button *ngIf="col.type == Columntypelst.expanded" type="button" pButton (click)="ToggelAll()"
+          styleClass="p-button-sm" class="p-button-text p-button-rounded p-button-plain"
+          [icon]="ExpandedAll ? 'pi pi-minus' : 'pi pi-plus'"></button> -->
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="groupheader" let-rowData let-rowIndex="rowIndex" let-expanded="expanded">
+      <tr>
+        <td [attr.colspan]="columns.length - 1" style="padding: 5px 16px">
+          <div style="display: flex; align-items: center; flex-direction: row">
+
+
+            <div class="grid-img">
+              {{ FormHelperService.getFirstChars(rowData?.User?.Name ) }}
+            </div>
+            <span class="font-bold ml-2">{{ rowData?.User?.Name }}</span>
+          </div>
+        </td>
+        <td attr.width="0%"></td>
+        <td>
+          <a href="#" [pRowToggler]="rowData">
+            <!-- <button type="button" pButton pRipple [pRowToggler]="customer" styleClass="p-button-sm"
+            class="p-button-text p-button-rounded p-button-plain"
+            [icon]="expanded ? 'pi pi-minus' : 'pi pi-plus'"></button> -->
+            <button type="button" pButton pRipple [pRowToggler]="customer"
+              class="p-button-text p-button-rounded p-button-plain mr-2"
+              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+
+          </a>
+        </td>
+      </tr>
+    </ng-template>
+    <!-- <ng-template pTemplate="groupfooter" let-customer>
+    <tr>
+        <td colspan="5" class="text-right font-bold pr-6">Total orders: 
+          {{calculateCustomerTotal(customer.representative.name)}}</td>
+    </tr>
+</ng-template> -->
+    <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+      <ng-container *ngFor="let item of rowData.items">
+        <tr [ngClass]="{ 'not-active': item['serviceStatusId'] == 2}">
+          <td attr.width="10%"></td>
+
+          <td *ngFor="let col of columns" [attr.width]="col.width">
+            <div [ngSwitch]="col.type">
+              <span *ngSwitchCase="Columntypelst.String" class="truncate" [pTooltip]="item[col.field]">
+                {{ item[col.field] }}
+              </span>
+              <span *ngSwitchCase="Columntypelst.list" [pTooltip]="item[col.field]" class="truncate">
+                {{ item[col.field]?.[0] }}
+                <a href="#">({{ item[col.field]?.length }} more)</a>
+              </span>
+              <span *ngSwitchCase="Columntypelst.listObjectCount">
+                <!-- orderDetails -->
+                <a href="#">{{ item[col.field] .length}}</a>
+              </span>
+              <span *ngSwitchCase="Columntypelst.progress">
+                <p-progressBar [value]="item[col.field]" [showValue]="false"></p-progressBar>
+              </span>
+              <span *ngSwitchCase="Columntypelst.daysOfWeek">
+                <p-selectButton disabled [options]="daysOfWeek" styleClass="p-button-sm small-select"
+                  class="small-select" [ngClass]="{ 'holded': item.scheduleTypeId== SchedulePageTypelst.hold }"
+                  [(ngModel)]="item[col.field]" optionLabel="day" optionValue="value" [multiple]="true">
+                </p-selectButton>
+              </span>
+              <span *ngSwitchCase="Columntypelst.date">
+                <span class="full-text" *ngIf=" item[col.field]!=undefined">{{ item[col.field] | date : 'dd-MMM-yyyy' }}
+                </span>
+              </span>
+              <span *ngSwitchCase="Columntypelst.time">
+                <span class="full-text">{{ item[col.field] | date : 'h:mm a' }} </span>
+              </span>
+
+              <span *ngSwitchCase="Columntypelst.Compine2Field">
+                <span class="full-text">{{ item[col.field]}}{{ col.seperator }}{{ item[col.field2] }} </span>
+
+              </span>
+
+              <span *ngSwitchCase="Columntypelst.Number">
+                <span class="full-text">{{ item[col.field] }} </span>
+
+              </span>
+
+              <span *ngSwitchCase="Columntypelst.Currency">
+                <span class="full-text">{{ item[col.field]|currency}} </span>
+
+              </span>
+
+              <span *ngSwitchCase="Columntypelst.statusNumber">
+                <p-tag [ngClass]="{ 'edited': item[col.value]==2}" [severity]="getStatusSeverity(item[col.value])">
+                  {{item[col.field]}}
+                </p-tag>
+              </span>
+              <span *ngSwitchCase="Columntypelst.booleanIcon">
+                <i class="pi" [ngClass]="{
+                        'text-green-500 pi-check-circle': item[col.field],
+                        'text-red-500 pi-times-circle': !item[col.field]
+                      }"></i>
+              </span>
+
+              <span *ngSwitchCase="Columntypelst.ActionMenu">
+                <i *ngIf="item.serviceStatusId == 1" class="fa fa-ellipsis-v" style="cursor: pointer"></i>
+              </span>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-template>
+  </p-table>
+</p-panel>

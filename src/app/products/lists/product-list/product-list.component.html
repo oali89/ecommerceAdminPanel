@@ -1,6 +1,8 @@
-<p-table *ngIf="false" [value]="productList" sortMode="single" [tableStyle]="{'min-width': '60rem'}" [paginator]="true"
+<p-table *ngIf="false" [value]="productList" sortMode="single" [tableStyle]="{'min-width': '60rem'}" 
+[paginator]="true"
   [rows]="5" [showCurrentPageReport]="true" [tableStyle]="{ 'min-width': '50rem' }"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5,10, 25, 50]">
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+   [rowsPerPageOptions]="[5,10, 25, 50]">
   <ng-template pTemplate="caption">
     <div class="flex align-items-center justify-content-between">
       Products

@@ -11,35 +11,10 @@ import { Observable, of } from 'rxjs';
 import orderData from './data/orders.json';
 import productsData from './data/porducts.json';
 import UsersData from './data/users.json';
-import { User } from '../orders/models/user';
 
 
-const users = {
-  "users": [
-    {
-      "name": "chidume nnamdi",
-      "age": 26
-    },
-    {
-      "name": "chisom",
-      "age": 46
-    },
-    {
-      "name": "elvis",
-      "age": 21
-    },
-    {
-      "name": "osy mattew",
-      "age": 21
-    },
-    {
-      "name": "valentine",
-      "age": 21
-    },
-  ]
-}
-const orders = orderData
-const products = productsData
+const dataFilePath = './data/orders.json';
+
 @Injectable()
 export class FakeBackendInterceptorInterceptor implements HttpInterceptor {
 
@@ -56,24 +31,21 @@ export class FakeBackendInterceptorInterceptor implements HttpInterceptor {
 
         case url.endsWith('/Products') && method === 'GET':
           return getProducts();
+
+        case url.includes('/Products/') && method === 'GET': {
+
+          const id = parseInt(url.split('/').pop() || '', 10);
+          return getProduct(id);
+        }
         case url.endsWith('/users') && method === 'GET':
           return getUserOrders();
-
+        case url === '/Orders' && method === 'POST': {
+          // Extract the product object from the request body
+          let order = request.body;
+          return AddNewOrder(order);
+        }
         default:
           return next.handle(request);
-        // if (request.method === "GET" && request.url === "http://localhost:4200/users") {
-        //   return of(new HttpResponse({ status: 200, body: users }));
-        // }
-        // else {
-        //   return next.handle(request);
-        // }
-        //  switch (true) {
-        //           case url.endsWith('/users') && method === 'GET':
-        //               return getUsers();
-        //           default:
-        //               // pass through any requests not handled above
-        //               return next.handle(request);
-        // }
       }
     }
   }
@@ -83,11 +55,33 @@ function getOrders() {
   // if (!isLoggedIn()) return unauthorized();
   return of(new HttpResponse({ status: 200, body: orderData }));
 }
+function getProduct(id) {
+  let product = productsData.find(pro => pro.ProductId == id)
+  return of(new HttpResponse({ status: 200, body: product }));
+}
 function getProducts() {
   // if (!isLoggedIn()) return unauthorized();
   return of(new HttpResponse({ status: 200, body: productsData }));
 }
+function AddNewOrder(order) {
 
+
+  // Read the existing data from the JSON file
+  // const existingData = JSON.parse(Fs.readFileSync(dataFilePath, 'utf8'));
+
+  // // Generate a new ID for the product
+  // const id = existingData.length + 1;
+  // order.id = id;
+
+  // existingData.push(order);
+
+  // Fs.writeFileSync(dataFilePath, JSON.stringify(existingData));
+
+
+  return of(new HttpResponse({ status: 200, body: { messege: 'added successfully' } }));
+
+
+}
 function getUserOrders() {
   // if (!isLoggedIn()) return unauthorized();
   return of(new HttpResponse({ status: 200, body: UsersData }));

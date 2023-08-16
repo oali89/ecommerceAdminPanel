@@ -4,4 +4,5 @@ export class Product {
   ProductImg: string
   ProductName: string
   ProductPrice: number
+  Quantity?: number
 }

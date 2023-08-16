@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { OrderService } from './orders/services/order.service';
 import { ProductService } from './products/services/product.service';
 import { PrimeNGConfig } from 'primeng/api';
+import { NetworkService } from './shared/services/network.service';
 
 @Component({
   selector: 'app-root',
@@ -10,14 +11,13 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent {
   title = 'ecommerceAdminPanel';
-  constructor(private orderService: OrderService,
+  constructor(
     private primengConfig: PrimeNGConfig,
-    private ProductService: ProductService) { }
+
+    public networkService: NetworkService) { }
 
   ngOnInit() {
 
-    this.orderService.getOrders().subscribe(res => console.log(res))
-    this.ProductService.getProducts().subscribe(res => console.log(res))
     this.primengConfig.ripple = true;
 
   }

@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+<router-outlet *ngIf="networkService.online"></router-outlet>
+
+<app-connection-lost *ngIf="!networkService.online"></app-connection-lost>
+<!-- 
+<app-spinner></app-spinner>
+
+<p-toast></p-toast> -->

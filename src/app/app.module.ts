@@ -10,6 +10,8 @@ import { SharedModule } from './shared/shared.module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FakeBackendInterceptorInterceptor } from './core/fake-backend-interceptor.interceptor';
+import { LayoutModule } from './layout/layout.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { FakeBackendInterceptorInterceptor } from './core/fake-backend-intercept
     FormsModule,
 
     BrowserModule,
-    AppRoutingModule,
+    //AppRoutingModule,
+    RouterModule.forRoot([]),
+    LayoutModule,
     SharedModule,
 
   ],

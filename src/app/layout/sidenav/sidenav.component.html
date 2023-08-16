@@ -1,0 +1,36 @@
+<div class="sidenav" [ngClass]="collapsed? 'sidenav-collapsed' :'' ">
+  <div class="logo-container">
+    <!-- <button class="logo" (click)="toggleCollapse()">
+
+      <img width="32" height="32" src="../../../assets/imgs/idea_1575392.png">
+    </button> -->
+    <!-- <p-button icon="pi pi-refresh"></p-button> -->
+    <p-button icon="pi pi-bars" styleClass="p-button-rounded p-button-text text-white"
+      (click)="toggleCollapse()"></p-button>
+
+    <div class="logo-text" *ngIf="collapsed"> Hello 👋</div>
+    <button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
+      <i class="fas fa-times close-icon">
+      </i>
+    </button>
+  </div>
+  <ul class="sidenav-nav">
+    <li class="sidenav-nav-item" *ngFor="let data of navData">
+      <a *ngIf="data.routeLink" class="sidenav-nav-link" routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}" [routerLink]="[data.routeLink]"
+        (click)="ExcuteNav(data.functionName)">
+        <i *ngIf="data.icon" class="sidenav-link-icon" [class]="data.icon"></i>
+        <img *ngIf="data.Iconsrc" class="sidenav-link-icon" [src]="data.Iconsrc" />
+        <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
+      </a>
+      <a *ngIf="!data.routeLink" class="sidenav-nav-link" (click)="ExcuteNav(data.functionName)">
+        <i *ngIf="data.icon" class="sidenav-link-icon" [class]="data.icon"></i>
+        <img *ngIf="data.Iconsrc" class="sidenav-link-icon" [src]="data.Iconsrc" />
+
+        <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
+      </a>
+    </li>
+
+  </ul>
+
+</div>
