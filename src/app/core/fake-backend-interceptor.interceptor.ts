@@ -38,8 +38,19 @@ export class FakeBackendInterceptorInterceptor implements HttpInterceptor {
           const id = parseInt(url.split('/').pop() || '', 10);
           return getProduct(id);
         }
+
+
+        case url.includes('/Orders/') && method === 'GET': {
+
+          const id = parseInt(url.split('/').pop() || '', 10);
+          return getOrder(id);
+        }
         case url.endsWith('/users') && method === 'GET':
           return getUserOrders();
+        case url.includes('/users/') && method === 'GET': {
+          const id = url.split('/').pop();
+          return getUser(id);
+        }
         case url.endsWith('/Orders') && method === 'POST': {
           // Extract the product object from the request body
           let order = request.body;
@@ -58,6 +69,7 @@ export class FakeBackendInterceptorInterceptor implements HttpInterceptor {
 }
 function getOrders() {
   // if (!isLoggedIn()) return unauthorized();
+
   return of(new HttpResponse({ status: 200, body: orderData }));
 }
 function getProduct(id) {
@@ -65,6 +77,7 @@ function getProduct(id) {
   return of(new HttpResponse({ status: 200, body: product }));
 }
 function getProducts() {
+
   // if (!isLoggedIn()) return unauthorized();
   return of(new HttpResponse({ status: 200, body: productsData }));
 }
@@ -101,6 +114,15 @@ function getUserOrders() {
   return of(new HttpResponse({ status: 200, body: UsersData }));
 }
 
+function getOrder(id) {
+  let order = orderData.find(ord => ord.OrderId == id)
+  return of(new HttpResponse({ status: 200, body: order }));
+}
+
+function getUser(id) {
+  let user = UsersData.find(u => u.Id == id)
+  return of(new HttpResponse({ status: 200, body: user }));
+}
 function AddNewOrder(order, httpClient: HttpClient) {
   let
     user = {

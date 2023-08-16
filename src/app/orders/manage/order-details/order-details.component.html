@@ -1,1 +1,91 @@
-<p>order-details works!</p>
+<div class="container">
+  <h4>Order #{{orderId}}</h4>
+  <h6 class="text-muted">{{Order.OrderDate | date :'medium'}}</h6>
+  <p-steps [model]="items" [readonly]="true" activeIndex="3"></p-steps>
+
+  <div class="row">
+    <div class="col-lg-8 col-md-12">
+
+      <div class="row">
+        <div class="col-12">
+          <!-- {{Order|json}} -->
+          <p-card header="Custumer's Card">
+            <div *ngFor="let product of Order.Products">
+              <div class="col-12">
+                <div class="flex flex-column xl:flex-row xl:align-items-start p-3 gap-4">
+                  <img class="w-5 sm:w-10rem xl:w-4rem shadow-2 block xl:block mx-auto border-round"
+                    [src]="product.ProductImg" />
+                  <div
+                    class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                    <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                      <div class="text-2xl font-bold text-900">{{ product.ProductName }}</div>
+
+                    </div>
+
+                    <div class="text-2xlfont-semibold">{{ product.ProductPrice }}</div>
+                    <div class="text-2xlfont-semibold">{{ product.Quantity }}</div>
+                    <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                      <span class="text-2xl font-semibold">{{ product.ProductPrice *product.Quantity |currency }}</span>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <p-card header="Summary">
+            <p>
+              <span>Total Price</span>
+              {{Order.TotalPrice |currency}}
+            </p>
+            <p>
+              <span>Shipping Fees</span>
+              {{50| currency}}
+            </p>
+
+          </p-card>
+        </div>
+        <div class="col-6">
+          <p-card header="Title">
+            <p class="m-0">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
+              numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse,
+              cupiditate neque
+              quas!
+            </p>
+          </p-card>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+      <p-card header="Custumer">
+        <div class="w-100 text-center">
+          <div class="user-img m-auto">
+            {{ FormHelperService.getFirstChars(Order?.User?.Name ) }}
+          </div>
+        </div>
+        <p-divider></p-divider>
+
+
+        <span>{{Order?.User?.Name}}</span>
+        <p-divider></p-divider>
+        <div><i class="pi pi-envelope mr-1"></i>
+          <span> {{Order?.User?.Email}}</span>
+        </div>
+        <p-divider></p-divider>
+
+        <div> <i class="pi pi-phone mr-1"></i>{{Order?.User?.Phone}}
+        </div>
+        <p-divider></p-divider>
+        <div> <i class="fa-solid fa-location-dot mr-1"></i>
+          {{Order?.User?.Address}}
+        </div>
+      </p-card>
+    </div>
+  </div>
+
+</div>

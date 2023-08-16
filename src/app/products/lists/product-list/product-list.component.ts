@@ -3,6 +3,7 @@ import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
 import { Column, Columntype, mapEnum } from 'src/app/shared/models/Column';
 import { SelectItem } from 'primeng/api';
+import { FormHelperService } from 'src/app/shared/HelperServices/FormHelper';
 
 @Component({
   selector: 'app-product-list',
@@ -11,7 +12,9 @@ import { SelectItem } from 'primeng/api';
 })
 export class ProductListComponent {
   constructor(
-    private ProductService: ProductService) { }
+    private ProductService: ProductService,
+    public FormHelperService: FormHelperService
+  ) { }
   productList: Product[];
   columns: Column[] = [
     { field: 'ProductImg', header: '', sortable: false, type: Columntype.image },
@@ -48,24 +51,5 @@ export class ProductListComponent {
       this.sortField = value;
     }
   }
-  getSeverity(product: Product) {
-    if (product.AvailablePieces >= 20) {
 
-      return 'success';
-    } else if (product.AvailablePieces < 20) {
-      return 'warning';
-
-    }
-    else if (product.AvailablePieces == 0) { return 'danger'; }
-    return null
-  };
-  getStatus(product: Product) {
-    if (product.AvailablePieces >= 20) {
-      return 'INSTOCK';
-    } else if (product.AvailablePieces < 20) {
-      return 'LOWSTOCK';
-    }
-    else if (product.AvailablePieces == 0) { return 'OUTOFSTOCK'; }
-    return null
-  };
 }

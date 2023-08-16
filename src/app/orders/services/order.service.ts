@@ -13,8 +13,15 @@ export class OrderService {
   getOrders(): Observable<Order[]> {
     return this.httpClient.get<Order[]>("http://localhost:4200/Orders")
   }
+  getOrder(id): Observable<Order> {
+    return this.httpClient.get<Order>("http://localhost:4200/Orders/" + id)
+  }
   getusers(): Observable<User[]> {
     return this.httpClient.get<User[]>("http://localhost:4200/users")
+  }
+
+  getuser(id): Observable<User> {
+    return this.httpClient.get<User>("http://localhost:4200/users/" + id)
   }
   AddNewOrder() {
 

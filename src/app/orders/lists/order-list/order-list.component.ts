@@ -1,12 +1,12 @@
+import { Columntype } from 'src/app/shared/models/Column';
 import { Component } from '@angular/core';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../models/order';
+import { SelectItem } from 'primeng/api';
+import { zip } from 'rxjs';
 import { ProductService } from 'src/app/products/services/product.service';
 import { FormHelperService } from 'src/app/shared/HelperServices/FormHelper';
 import { Product } from 'src/app/products/models/product';
-import { Columntype } from 'src/app/shared/models/Column';
-import { SelectItem } from 'primeng/api';
-import { zip } from 'rxjs';
 
 @Component({
   selector: 'app-order-list',
@@ -34,23 +34,6 @@ export class OrderListComponent {
     this.orderService.AddNewOrder().subscribe(res => {
       console.log(res)
     })
-    // this.orderService.getusers().subscribe(users => {
-    //   console.log(users)
-    // })
-    // this.orderService.getOrders().subscribe(res => { this.orderList = res })
-
-    // this.orderService.getusers().subscribe(users => {
-    //   console.log(users)
-
-    //   this.orderService.getOrders().subscribe(res => {
-    //     res.forEach(order => {
-
-    //       order.User = users.find(x => x.Id == order.UserId)
-    //     })
-    //     this.orderList = res
-    //     console.log(this.orderList)
-    //   })
-    // });
   }
   LoadList() {
     let userdata;

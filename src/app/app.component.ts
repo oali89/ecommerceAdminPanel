@@ -16,34 +16,11 @@ export class AppComponent {
     private primengConfig: PrimeNGConfig,
 
     public networkService: NetworkService
-    , private http: HttpClient) { }
+  ) { }
 
   ngOnInit() {
 
     this.primengConfig.ripple = true;
-
-    const user = {
-      name: 'John Doe',
-      age: 30,
-    };
-
-    const options = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    fetch('http://localhost:4200/assets/data/data.json', {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
 
   }
 

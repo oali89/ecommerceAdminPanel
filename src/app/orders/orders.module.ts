@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: '',
     component: OrderListComponent,
-  pathMatch:'full'
+    pathMatch: 'full'
 
   },
   {
@@ -19,7 +19,7 @@ const routes: Routes = [
     component: UserOrderListComponent
   },
   {
-    path: 'OrderDetails',
+    path: 'OrderDetails/:id',
     component: OrderDetailsComponent
   }
 ];
