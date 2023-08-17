@@ -54,6 +54,7 @@ export class FakeBackendInterceptorInterceptor implements HttpInterceptor {
         case url.endsWith('/Orders') && method === 'POST': {
           // Extract the product object from the request body
           let order = request.body;
+          return of(new HttpResponse({ status: 200, body: { messege: 'added successfully' } }));
 
 
           return AddNewOrder(order, this.httpClient);
@@ -67,6 +68,8 @@ export class FakeBackendInterceptorInterceptor implements HttpInterceptor {
 
 }
 function getOrders() {
+  // if (!isLoggedIn()) return unauthorized();
+
   return of(new HttpResponse({ status: 200, body: orderData }));
 }
 function getProduct(id) {
@@ -76,7 +79,9 @@ function getProduct(id) {
 function getProducts() {
   return of(new HttpResponse({ status: 200, body: productsData }));
 }
+
 function getUserOrders() {
+  // if (!isLoggedIn()) return unauthorized();
   return of(new HttpResponse({ status: 200, body: UsersData }));
 }
 
@@ -90,7 +95,11 @@ function getUser(id) {
   return of(new HttpResponse({ status: 200, body: user }));
 }
 function AddNewOrder(order, httpClient: HttpClient) {
+
   const options = { Headers, responseType: 'json' as 'blob' };
-  httpClient.post('http://localhost:4200/assets/data/data.json', order, options)
+
+  httpClient.put('http://localhost:4200/assets/data/data.json', order, options)
   return of(new HttpResponse({ status: 200, body: { messege: 'added successfully' } }));
+
+
 }
