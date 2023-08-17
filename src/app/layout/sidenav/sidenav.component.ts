@@ -1,6 +1,5 @@
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { MenuNavFunction, navbarData } from './nav-data';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 export interface sideNavToggle {
   screenWidth: number;
   collapsed: boolean;
@@ -9,14 +8,12 @@ export interface sideNavToggle {
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
-  providers: [DialogService]
 })
 export class SidenavComponent implements OnInit {
 
   collapsed = false;
   navData = navbarData;
   screenWidth = 0;
-  ref: DynamicDialogRef;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -28,8 +25,7 @@ export class SidenavComponent implements OnInit {
     }
   }
 
-  constructor(public dialogService: DialogService,
-  ) {
+  constructor() {
 
   }
   ngOnInit(): void {
@@ -45,15 +41,6 @@ export class SidenavComponent implements OnInit {
     this.collapsed = false;
     this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth })
 
-  }
-  ExcuteNav(fun: MenuNavFunction) {
-    switch (fun) {
-      case MenuNavFunction.AddProvider:
-        //        this.Providertabs()
-        break;
-      default:
-        break
-    }
   }
 
 

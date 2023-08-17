@@ -3,9 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
-//const routes: Routes = [{ path: '', component: MainLayoutComponent }];
-
 const routes: Routes = [
   {
     path: '',
@@ -40,7 +37,7 @@ const routes: Routes = [
 
 
 
-  { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
+  { path: '**', component: PageNotFoundComponent },
 
 ];
 

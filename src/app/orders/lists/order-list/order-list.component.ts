@@ -94,15 +94,4 @@ export class OrderListComponent {
   }
 
 
-  AddOrder() {
-    this.ref = this.dialogService.open(AddOrderComponent, {
-      width: '50vw',
-      data: {
-
-        id: '51gF3'
-
-      },
-      header: 'New Order'
-    });
-  }
 }

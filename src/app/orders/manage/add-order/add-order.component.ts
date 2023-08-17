@@ -104,17 +104,7 @@ export class AddOrderComponent {
       0)
   }
   onClear() { }
-  // CheckProduct(event, product: Product) {
-  //   if (event) {
-  //     let selected: any[] = this.orderForm.value['productSelections'];
-  //     selected.push(product.ProductId);
-  //     this.orderForm.controls['productSelections'].patchValue(selected)
-  //   }
-  //   else {
-  //     let selected: any[] = this.orderForm.value['productSelections'];
 
-  //   }
-  // }
   PaymentMethodChanged(e) { }
 
   Save() {

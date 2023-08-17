@@ -54,7 +54,6 @@ export class FakeBackendInterceptorInterceptor implements HttpInterceptor {
         case url.endsWith('/Orders') && method === 'POST': {
           // Extract the product object from the request body
           let order = request.body;
-          return of(new HttpResponse({ status: 200, body: { messege: 'added successfully' } }));
 
 
           return AddNewOrder(order, this.httpClient);
@@ -68,8 +67,6 @@ export class FakeBackendInterceptorInterceptor implements HttpInterceptor {
 
 }
 function getOrders() {
-  // if (!isLoggedIn()) return unauthorized();
-
   return of(new HttpResponse({ status: 200, body: orderData }));
 }
 function getProduct(id) {
@@ -77,40 +74,9 @@ function getProduct(id) {
   return of(new HttpResponse({ status: 200, body: product }));
 }
 function getProducts() {
-
-  // if (!isLoggedIn()) return unauthorized();
   return of(new HttpResponse({ status: 200, body: productsData }));
 }
-// function AddNewOrder(order, httpClient) {
-//   let
-//     user = {
-//       name: 'Arthur',
-//       age: 21
-//     };
-
-//   const options = { Headers, responseType: 'json' as 'blob' };
-//   httpClient.put('assets/data.json', user, options).subscribe(
-//     data => {
-//       console.log(data);
-//     });
-//   // Read the existing data from the JSON file
-//   // const existingData = JSON.parse(Fs.readFileSync(dataFilePath, 'utf8'));
-
-//   // // Generate a new ID for the product
-//   // const id = existingData.length + 1;
-//   // order.id = id;
-
-//   // existingData.push(order);
-
-//   // Fs.writeFileSync(dataFilePath, JSON.stringify(existingData));
-
-
-//   return of(new HttpResponse({ status: 200, body: { messege: 'added successfully' } }));
-
-
-// }
 function getUserOrders() {
-  // if (!isLoggedIn()) return unauthorized();
   return of(new HttpResponse({ status: 200, body: UsersData }));
 }
 
@@ -124,21 +90,7 @@ function getUser(id) {
   return of(new HttpResponse({ status: 200, body: user }));
 }
 function AddNewOrder(order, httpClient: HttpClient) {
-  let
-    user = {
-      name: 'Arthur',
-      age: 21
-    };
-
   const options = { Headers, responseType: 'json' as 'blob' };
-  // const options = {
-  //   method: 'PUT',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // };
-  httpClient.put('http://localhost:4200/assets/data/data.json', user, options)
+  httpClient.post('http://localhost:4200/assets/data/data.json', order, options)
   return of(new HttpResponse({ status: 200, body: { messege: 'added successfully' } }));
-
-
 }

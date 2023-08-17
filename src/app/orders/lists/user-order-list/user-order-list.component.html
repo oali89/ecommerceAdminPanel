@@ -23,9 +23,6 @@
         <th *ngFor="let col of columns" [attr.width]="col.width" [pSortableColumn]="col.field">
           {{ col.header }}
           <p-sortIcon *ngIf="col.sortable && col.type != Columntypelst.expanded" [field]="col.field"></p-sortIcon>
-          <!-- <button *ngIf="col.type == Columntypelst.expanded" type="button" pButton (click)="ToggelAll()"
-          styleClass="p-button-sm" class="p-button-text p-button-rounded p-button-plain"
-          [icon]="ExpandedAll ? 'pi pi-minus' : 'pi pi-plus'"></button> -->
         </th>
         <th></th>
 
