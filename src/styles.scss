@@ -29,14 +29,17 @@
 .p-dropdown,
 .p-multiselect,
 .p-inputnumber,
+.p-multiselect-clearable,
 input.p-inputtext:not(.inputgroup-input) {
   height: 35px !important;
-  //max-width: 95%;
-
+  max-height: 35px !important;
+  max-width: 100%;
+  width: 100%;
   //width: 90%;
   .p-dropdown-label.p-placeholder,
-  .p-multiselect-label {
-    padding-top: 6px;
+  .p-multiselect-label,
+  .p-dropdown-label {
+    padding-top: 6px !important;
   }
   .p-inputtext {
     padding-top: 6px;
@@ -64,4 +67,7 @@ input.p-inputtext:not(.inputgroup-input) {
       font-size: 1rem;
     }
   }
+}
+.p-float-label {
+  max-width: 100%;
 }

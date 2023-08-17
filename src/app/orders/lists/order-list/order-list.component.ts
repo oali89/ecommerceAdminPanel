@@ -2,16 +2,19 @@ import { Columntype } from 'src/app/shared/models/Column';
 import { Component } from '@angular/core';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../models/order';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { zip } from 'rxjs';
 import { ProductService } from 'src/app/products/services/product.service';
 import { FormHelperService } from 'src/app/shared/HelperServices/FormHelper';
 import { Product } from 'src/app/products/models/product';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { AddOrderComponent } from '../../manage/add-order/add-order.component';
 
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
-  styleUrls: ['./order-list.component.scss']
+  styleUrls: ['./order-list.component.scss'],
+  providers: [DialogService, MessageService]
 })
 export class OrderListComponent {
   orderList: Order[];
@@ -22,8 +25,11 @@ export class OrderListComponent {
   sortOptions!: SelectItem[];
   layout: string = 'list';
 
+  ref: DynamicDialogRef | undefined;
+
   constructor(private orderService: OrderService, public FormHelperService: FormHelperService,
-    private ProductService: ProductService) { }
+    private ProductService: ProductService,
+    public dialogService: DialogService) { }
 
   ngOnInit() {
     this.LoadList()
@@ -31,9 +37,7 @@ export class OrderListComponent {
       { label: 'Price High to Low', value: '!TotalPrice' },
       { label: 'Price Low to High', value: 'TotalPrice' }
     ];
-    this.orderService.AddNewOrder().subscribe(res => {
-      console.log(res)
-    })
+
   }
   LoadList() {
     let userdata;
@@ -53,6 +57,7 @@ export class OrderListComponent {
 
 
   }
+
   getTotalPrice(order) {
     return order.Products.reduce(
       (acc: number, product: Product) => {
@@ -86,5 +91,18 @@ export class OrderListComponent {
       this.sortOrder = 1;
       this.sortField = value;
     }
+  }
+
+
+  AddOrder() {
+    this.ref = this.dialogService.open(AddOrderComponent, {
+      width: '50vw',
+      data: {
+
+        id: '51gF3'
+
+      },
+      header: 'New Order'
+    });
   }
 }

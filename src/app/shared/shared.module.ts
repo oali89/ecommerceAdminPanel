@@ -91,6 +91,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 const PrimeComponent = [
 
@@ -208,6 +209,6 @@ const PrimeComponent = [
     // BrowserModule,
   ]
   , exports: [PrimeComponent,
-  ]
+  ], providers: [MessageService, ConfirmationService]
 })
 export class SharedModule { }

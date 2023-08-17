@@ -5,4 +5,5 @@ export class Product {
   ProductName: string
   ProductPrice: number
   Quantity?: number
+  selected: boolean = false
 }

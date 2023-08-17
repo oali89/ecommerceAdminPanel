@@ -1,0 +1,118 @@
+<div class="container mb-3">
+
+  <form [formGroup]="orderForm">
+    <div class="row">
+      <div class="col-12 d-flex align-items-center">
+        <span class="form-group w-100">
+          <label>User</label>
+
+          <p-dropdown [options]="userList" class="w-100" appendTo="body" formControlName="selectedUser"
+            placeholder="Select a User" filterBy="Name, Email" [showClear]="true" [filter]="true" class="p-inputtext-sm"
+            optionLabel="Name" optionValue="Id">
+            <ng-template let-user pTemplate="item">
+              <div class="flex align-items-center gap-2">
+
+                <div class="custom-item">{{ user.Name }} - {{ user.Email }}</div>
+
+              </div>
+            </ng-template>
+
+            <ng-template pTemplate="emptyfilter">
+              <div class="no-results-message d-flex flex-column text-center">
+                <span class="pb-3"> No result found </span>
+              </div>
+            </ng-template>
+          </p-dropdown>
+
+        </span>
+
+      </div>
+      <div class="col-11 ">
+        <ng-container formArrayName="products">
+          <ng-container *ngFor="let productForm of products.controls; let i = index">
+            <div class="row align-items-center" [formGroup]="productForm">
+
+              <div class="col-5">
+                <div class="form-group"> <label for="product">Product</label>
+
+                  <p-dropdown [options]="productList" class="w-100" appendTo="body" formControlName="ProductId"
+                    placeholder="Select a prodct" filterBy="ProductName,ProductPrice" [showClear]="true" [filter]="true"
+                    class="p-inputtext-sm" optionLabel="ProductName" optionValue="ProductId" id="productDDL"
+                    inputId="product" (onChange)="onChange($event.value,productForm)" (onClear)="onClear()">
+                    <ng-template let-product pTemplate="item">
+                      <div class="flex align-items-center gap-2">
+                        <img [src]="product.ProductImg" style="width: 18px" />
+                        <div class="custom-item">{{ product.ProductName }} - {{ product.ProductPrice }}</div>
+
+                      </div>
+                    </ng-template>
+
+                    <ng-template pTemplate="emptyfilter">
+                      <div class="no-results-message d-flex flex-column text-center">
+                        <span class="pb-3"> No result found </span>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="form-group">
+                  <label>Quantity</label>
+
+                  <p-inputNumber formControlName="Quantity" [min]=" 1" [showButtons]="true" buttonLayout="horizontal"
+                    inputId="horizontal" spinnerMode="horizontal" [step]="1"></p-inputNumber>
+                </div>
+
+              </div>
+              <div class="col-2">
+                <button pButton icon="pi pi-trash" class="md:align-self-end mt-4 p-button-text p-button-rounded"
+                  (click)="deleteproduct(i)"></button>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+
+      </div>
+      <div class="col-1">
+
+        <button pButton icon="pi pi-plus" class="md:align-self-end mb-2 p-button-text p-button-rounded"
+          (click)="addproduct()"></button>
+
+      </div>
+
+
+      <div class="col-6 d-flex align-items-center">
+        <div class="form-group">
+          <label class="small-label">Payment Method</label>
+
+          <div class="flex gap-3 align-items-center">
+            <div class="field-checkbox d-flex align-items-center">
+              <p-radioButton name="selectedPaymentMethod" *ngFor="let item of PaymentMethod" class="me-2"
+                [value]="item.key" [label]="item.name" (onClick)="PaymentMethodChanged($event)"
+                formControlName="selectedPaymentMethod">
+              </p-radioButton>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        Total Price:{{getTotalPrice()}}
+      </div>
+    </div>
+  </form>
+</div>
+<div class="d-flex mb-3 justify-content-center actions-div">
+  <p-button label="Cancel" (click)="Close()" styleClass="p-button-outlined p-button-danger p-button-sm"
+    class="me-4"></p-button>
+  <p-button [label]="'Save'" [pTooltip]="
+      orderForm?.invalid
+        ? 'All Mandatory data must be field First'
+        : ''
+    " (click)="
+      orderForm?.invalid
+        ? null
+        : Save()
+    " [disabled]="
+      orderForm?.invalid  " styleClass="p-button-outlined p-button-sm"></p-button>
+</div>

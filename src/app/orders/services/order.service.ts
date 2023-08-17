@@ -23,9 +23,9 @@ export class OrderService {
   getuser(id): Observable<User> {
     return this.httpClient.get<User>("http://localhost:4200/users/" + id)
   }
-  AddNewOrder() {
+  AddNewOrder(order: Order) {
 
-    return this.httpClient.post("http://localhost:4200/Orders", {})
+    return this.httpClient.post("http://localhost:4200/Orders", order)
 
   }
 }

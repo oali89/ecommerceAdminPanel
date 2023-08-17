@@ -27,11 +27,13 @@
           styleClass="p-button-sm" class="p-button-text p-button-rounded p-button-plain"
           [icon]="ExpandedAll ? 'pi pi-minus' : 'pi pi-plus'"></button> -->
         </th>
+        <th></th>
+
       </tr>
     </ng-template>
     <ng-template pTemplate="groupheader" let-rowData let-rowIndex="rowIndex" let-expanded="expanded">
       <tr>
-        <td [attr.colspan]="columns.length - 1" style="padding: 5px 16px">
+        <td [attr.colspan]="columns.length " style="padding: 5px 16px">
           <div style="display: flex; align-items: center; flex-direction: row">
 
 

@@ -48,7 +48,8 @@
               <i class="pi pi-tag"></i>
               <!-- <span class="font-semibold">{{ product.category }}</span> -->
             </span>
-            <p-tag [value]="getStatus(product)" [severity]="getSeverity(product)"></p-tag>
+            <p-tag [value]="FormHelperService.getProductStatus(product)"
+              [severity]="FormHelperService.getProductSeverity(product)"></p-tag>
           </div>
           <div class="flex flex-column align-items-center gap-3 py-5">
             <img class="w-9 shadow-2 border-round" [src]="product.ProductImg" [alt]="product.ProductName" />
@@ -67,9 +68,9 @@
 </div>
 
 
-<!-- 
+<!--
 
-<p-table *ngIf="false" [value]="productList" sortMode="single" [tableStyle]="{'min-width': '60rem'}" 
+<p-table *ngIf="false" [value]="productList" sortMode="single" [tableStyle]="{'min-width': '60rem'}"
 [paginator]="true"
   [rows]="5" [showCurrentPageReport]="true" [tableStyle]="{ 'min-width': '50rem' }"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
