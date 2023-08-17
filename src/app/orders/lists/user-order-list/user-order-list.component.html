@@ -55,12 +55,6 @@
         </td>
       </tr>
     </ng-template>
-    <!-- <ng-template pTemplate="groupfooter" let-customer>
-    <tr>
-        <td colspan="5" class="text-right font-bold pr-6">Total orders: 
-          {{calculateCustomerTotal(customer.representative.name)}}</td>
-    </tr>
-</ng-template> -->
     <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
       <ng-container *ngFor="let item of rowData.items">
         <tr [ngClass]="{ 'not-active': item['serviceStatusId'] == 2}">
@@ -128,6 +122,9 @@
               </span>
             </div>
           </td>
+          <td><button pButton class="md:align-self-end mb-2 p-button-rounded"
+              [routerLink]="['OrderDetails', item.OrderId]" routerLinkActive="router-link-active">View
+              details</button></td>
         </tr>
       </ng-container>
     </ng-template>

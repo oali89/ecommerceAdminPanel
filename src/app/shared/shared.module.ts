@@ -89,6 +89,9 @@ import { PanelModule } from 'primeng/panel';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 const PrimeComponent = [
 
   ToastModule,
@@ -106,7 +109,7 @@ const PrimeComponent = [
   CardModule,
   CarouselModule,
   CascadeSelectModule,
-  // ChartModule,
+  ChartModule,
   CheckboxModule,
   ChipsModule,
   ChipsModule,
@@ -202,7 +205,9 @@ const PrimeComponent = [
 
     JsonPipe,
 
+    // BrowserModule,
   ]
-  , exports: [PrimeComponent]
+  , exports: [PrimeComponent,
+  ]
 })
 export class SharedModule { }

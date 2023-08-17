@@ -1,1 +1,40 @@
-<p>dashboard works!</p>
+<div class="row">
+  <div class="col" *ngFor="let count of countersNumbers;let i=index">
+    <div class="card">
+      <div class="counter-container">
+        <i class="fab fa-instagram fa-3x"></i>
+        <div class="counter">{{counters[i]}}</div>
+        <span>{{count.title}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+
+    <div class="card">
+      <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true"
+        [responsiveOptions]="responsiveOptions" autoPlayInterval="3000">
+        <ng-template let-product pTemplate="item">
+          <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+            <div class="mb-3">
+              <img [src]="product.ProductImg" [alt]="product.ProductName" class="w-6 shadow-2" />
+            </div>
+            <div>
+              <h4 class="mb-1">{{ product.ProductName }}</h4>
+              <h6 class="mt-0 mb-3">{{ '$' + product.ProductPrice }}</h6>
+
+              <p-tag [value]="FormHelperService.getProductStatus(product)"
+                [severity]="FormHelperService.getProductSeverity(product)"></p-tag>
+              <div class="car-buttons mt-5">
+                <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
+                <p-button type="button" styleClass="p-button-success p-button-rounded mr-2"
+                  icon="pi pi-star-fill"></p-button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
+</div>

@@ -8,7 +8,6 @@
 
       <div class="row">
         <div class="col-12">
-          <!-- {{Order|json}} -->
           <p-card header="Custumer's Card">
             <div *ngFor="let product of Order.Products">
               <div class="col-12">
@@ -31,6 +30,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
           </p-card>
         </div>
@@ -38,24 +38,23 @@
       <div class="row">
         <div class="col-6">
           <p-card header="Summary">
-            <p>
-              <span>Total Price</span>
+            <p class="m-0">
+              Total Price:
               {{Order.TotalPrice |currency}}
             </p>
-            <p>
-              <span>Shipping Fees</span>
+            <p class="m-0">
+              Shipping Fees :
               {{50| currency}}
             </p>
-
           </p-card>
         </div>
         <div class="col-6">
-          <p-card header="Title">
+          <p-card header="Shipping">
             <p class="m-0">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-              numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse,
-              cupiditate neque
-              quas!
+              Dilivery within 24 Hour
+            </p>
+            <p class="m-0">
+              Payment method :{{Order.PaymentType}}
             </p>
           </p-card>
         </div>
@@ -69,8 +68,6 @@
           </div>
         </div>
         <p-divider></p-divider>
-
-
         <span>{{Order?.User?.Name}}</span>
         <p-divider></p-divider>
         <div><i class="pi pi-envelope mr-1"></i>
@@ -84,6 +81,12 @@
         <div> <i class="fa-solid fa-location-dot mr-1"></i>
           {{Order?.User?.Address}}
         </div>
+        <p-divider></p-divider>
+        <div class="w-100 text-center py-1">
+          <p-button styleClass="p-button-raised p-button-text p-button-secondary ">Edit
+            Customer Data</p-button>
+        </div>
+
       </p-card>
     </div>
   </div>
